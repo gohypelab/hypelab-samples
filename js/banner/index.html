@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/gh/gohypelab/hypelab-vanilla@v0.4.2/index.js"></script>
+  </head>
+  <body>
+    <div id="bannerSlot"></div>
+
+    <script>
+      // Initialize client.
+
+      let client = new HypeLab.Client({
+        URL: 'https://api.hypelab-staging.com',
+        // URL: 'https://api.hypelab.com', /* Production URL */
+        propertySlug: 'demo_property',
+        environment: HypeLab.Environment.Development,
+        // environment: Environment.Production /* Production Environment */
+      });
+
+      HypeLab.setClient(client);
+
+      // Set up banner placements.
+      HypeLab.banner({ placement: 'banner_placement', container: 'bannerSlot' });
+    </script>
+  </body>
+</html>
