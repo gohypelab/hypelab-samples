@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hypelab/sdk-react": "^1.0.0",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
-    "hypelab-react": "^0.4.4",
     "next": "13.4.19",
     "postcss": "8.4.28",
     "react": "18.2.0",

@@ -1,46 +1,49 @@
 <html>
   <head>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/gh/gohypelab/hypelab-vanilla@v0.4.2/index.js"></script>
+    <script defer src="https://api.hypelab.com/v1/scripts/hp-sdk.js?v=0"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        HypeLab.initialize({
+          URL: 'https://api.hypelab-staging.com',
+          propertySlug: 'demo_property',
+          environment: 'development',
+        });
+
+        HypeLab.setWalletAddresses(['0x0000000000000000000000000000000000000000']); // If wallet is available
+      });
+    </script>
   </head>
   <body>
-    <div id="rewarded"></div>
-    <div>
-      <button
-        id="hypelab-btn"
-        class="rounded-md border border-gray-300 bg-indigo-600 px-4 py-2 text-lg text-white"
-        data-cy="button"
-      >
-        Watch Video
-      </button>
-    </div>
+    <hype-rewarded id="rewarded" placement="rewarded_placement"></hype-rewarded>
+
+    <button type="button" id="show_rewarded" disabled class="block p-2.5 bg-blue-600 text-white disabled:bg-gray-400">
+      Show Rewarded
+    </button>
 
     <script>
-      let client = new HypeLab.Client({
-        URL: 'https://api.hypelab-staging.com',
-        // URL: 'https://api.hypelab.com', /* Production URL */
-        propertySlug: 'demo_property',
-        environment: HypeLab.Environment.Development,
-        // environment: Environment.Production /* Production Environment */
-      });
+      document.addEventListener('DOMContentLoaded', function () {
+        const rewarded = document.getElementById('rewarded');
+        const button = document.getElementById('show_rewarded');
 
-      HypeLab.setClient(client);
-    </script>
+        button.addEventListener('click', function () {
+          rewarded.show();
+        });
 
-    <script>
-      const handleRewarded = function () {
-        // Grant a reward (e.g., Give an in-game item, unlock a paywall, etc.)
-        console.log('handleRewarded called');
-      };
+        rewarded.addEventListener('ready', function () {
+          console.log('onReady');
+          button.disabled = false;
+        });
 
-      var rewarded = HypeLab.rewarded({
-        placement: 'rewarded_placement',
-        container: 'rewarded',
-        onComplete: handleRewarded,
-      });
+        rewarded.addEventListener('complete', function () {
+          console.log('onComplete');
+          button.disabled = true;
+        });
 
-      document.getElementById('hypelab-btn').addEventListener('click', function () {
-        rewarded.show();
+        rewarded.addEventListener('error', function () {
+          console.log('onError');
+          button.disabled = true;
+        });
       });
     </script>
   </body>

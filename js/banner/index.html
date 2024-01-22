@@ -1,25 +1,20 @@
 <html>
   <head>
-    <script src="https://cdn.jsdelivr.net/gh/gohypelab/hypelab-vanilla@v0.4.2/index.js"></script>
-  </head>
-  <body>
-    <div id="bannerSlot"></div>
-
+    <script defer src="https://api.hypelab.com/v1/scripts/hp-sdk.js?v=0"></script>
     <script>
-      // Initialize client.
+      document.addEventListener('DOMContentLoaded', function () {
+        HypeLab.initialize({
+          URL: 'https://api.hypelab-staging.com',
+          propertySlug: 'demo_property',
+          environment: 'development',
+        });
 
-      let client = new HypeLab.Client({
-        URL: 'https://api.hypelab-staging.com',
-        // URL: 'https://api.hypelab.com', /* Production URL */
-        propertySlug: 'demo_property',
-        environment: HypeLab.Environment.Development,
-        // environment: Environment.Production /* Production Environment */
+        HypeLab.setWalletAddresses(['0x0000000000000000000000000000000000000000']); // If wallet is available
       });
-
-      HypeLab.setClient(client);
-
-      // Set up banner placements.
-      HypeLab.banner({ placement: 'banner_placement', container: 'bannerSlot' });
     </script>
+  </head>
+
+  <body>
+    <hype-banner placement="banner_placement"></hype-banner>
   </body>
 </html>
